@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+header {
+    background-color: #007bff;
+}
+
+.navbar {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    font-size: 0.9em;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.review-card {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+.review-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.review-stars {
+    font-size: 20px;
+    color: gold;
+}
+
+.review-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Make Hero Section Full-Screen */
+.hero-section {
+    background: url('images/plane1.jpg') center/cover no-repeat;
+    height: 100vh; /* Full height of viewport */
+    width: 100vw; /* Full width of viewport */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Dark Overlay */
+/* Hero Section */
+/* Hero Section */
+.hero-section {
+    background: url('images/plane1.jpg') center/cover no-repeat;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Ensures no content spills out */
+    margin: 0;
+    padding: 0;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Positioned over the hero section */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure it sits above the background image */
+}
+
+.hero-content {
+    z-index: 2; /* Ensures content is above the overlay */
+    color: white;
+    position: relative; /* Relative positioning for z-index */
+}
