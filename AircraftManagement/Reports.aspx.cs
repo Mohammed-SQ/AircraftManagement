@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Configuration; 
 
 namespace AircraftManagement
 {
@@ -22,7 +23,7 @@ namespace AircraftManagement
 
         private void LoadTransactionData()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True"; // Replace with your actual connection string
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -32,6 +33,8 @@ namespace AircraftManagement
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
+                gvTransactions.DataSource = dt;
+                gvTransactions.DataBind();
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.Security;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -23,7 +24,7 @@ namespace AircraftManagement
 
             try
             {
-                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -41,7 +42,7 @@ namespace AircraftManagement
                             {
                                 string storedPassword = reader["Password"].ToString();
 
-                                if (storedPassword != password)
+                                if (storedPassword != password)  // Consider using hashed password verification
                                 {
                                     lblError.Text = "❌ Invalid email or password.";
                                     return;

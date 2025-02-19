@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Xml.Linq;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -35,7 +36,9 @@ namespace AircraftManagement
 
             try
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True"))
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = "INSERT INTO ContactUs (FullName, Email, Subject, Message, CreatedAt) VALUES (@Name, @Email, @Subject, @Message, GETDATE())";
                     SqlCommand cmd = new SqlCommand(query, conn);

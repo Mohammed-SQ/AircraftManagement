@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Configuration;  
 
 namespace AircraftManagement
 {
@@ -30,7 +31,7 @@ namespace AircraftManagement
 
             try
             {
-                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

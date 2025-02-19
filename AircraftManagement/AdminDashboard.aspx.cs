@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -24,7 +25,7 @@ namespace AircraftManagement
 
         private void LoadAircrafts()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -40,7 +41,7 @@ namespace AircraftManagement
 
         private void LoadUsers()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -56,7 +57,7 @@ namespace AircraftManagement
 
         private void LoadBookings()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -73,7 +74,7 @@ namespace AircraftManagement
         protected void BtnDeleteAircraft_Click(object sender, EventArgs e)
         {
             int aircraftId = Convert.ToInt32((sender as Button).CommandArgument);
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -91,7 +92,7 @@ namespace AircraftManagement
         protected void BtnDeleteUser_Click(object sender, EventArgs e)
         {
             int userId = Convert.ToInt32((sender as Button).CommandArgument);
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

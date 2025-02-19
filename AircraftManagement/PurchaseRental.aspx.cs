@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -17,7 +18,7 @@ namespace AircraftManagement
 
         private void LoadAircrafts()
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=True;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -44,7 +45,7 @@ namespace AircraftManagement
 
         protected void DdlAircrafts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=True;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -68,7 +69,7 @@ namespace AircraftManagement
 
             if (ddlTransactionType.SelectedValue == "Purchase")
             {
-                string connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=True;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;";
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

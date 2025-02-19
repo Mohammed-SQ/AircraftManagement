@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -47,7 +48,7 @@ namespace AircraftManagement
 
         private void LoadAircraftDetails(int aircraftId)
         {
-            string connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=True;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -130,7 +131,7 @@ namespace AircraftManagement
                     }
                 }
 
-                string connectionString = "Server=(localdb)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True;";
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -183,6 +184,5 @@ namespace AircraftManagement
                 lblError.Text = "❌ An error occurred: " + ex.Message;
             }
         }
-
     }
 }

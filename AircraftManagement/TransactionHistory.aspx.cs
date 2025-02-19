@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.Util;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -23,7 +23,7 @@ namespace AircraftManagement
         private void LoadTransactions()
         {
             int userId = Convert.ToInt32(Session["UserID"]);
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True"; // Replace with your actual connection string
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -43,7 +43,7 @@ namespace AircraftManagement
         {
             string filter = ddlFilter.SelectedValue;
             int userId = Convert.ToInt32(Session["UserID"]);
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True"; // Replace with your actual connection string
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Configuration; // Required to read from Web.config
 
-namespace AirAircraftManagement
+namespace AircraftManagement
 {
     public partial class Register : System.Web.UI.Page
     {
         protected void BtnRegister_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             try
             {
@@ -22,7 +23,7 @@ namespace AirAircraftManagement
                     {
                         cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
                         cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                        cmd.Parameters.AddWithValue("@Password", txtPassword.Text); // Consider hashing the password
                         cmd.Parameters.AddWithValue("@Role", "Customer");
                         cmd.Parameters.AddWithValue("@PhoneNumber", txtPhoneNumber.Text);
                         cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
@@ -33,19 +34,19 @@ namespace AirAircraftManagement
 
                         if (rowsAffected > 0)
                         {
-                            lblMessage.Text = "Registration successful!";
+                            lblMessage.Text = "✅ Registration successful!";
                             lblMessage.ForeColor = System.Drawing.Color.Green;
                         }
                         else
                         {
-                            lblMessage.Text = "Registration failed. Please try again.";
+                            lblMessage.Text = "❌ Registration failed. Please try again.";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                lblMessage.Text = "Error: " + ex.Message;
+                lblMessage.Text = "⚠️ Error: " + ex.Message;
             }
         }
     }

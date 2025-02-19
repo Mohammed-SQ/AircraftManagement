@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration; // Required to read from Web.config
 
 namespace AircraftManagement
 {
@@ -23,7 +24,7 @@ namespace AircraftManagement
 
         private void LoadUserProfile()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -46,7 +47,7 @@ namespace AircraftManagement
 
         private void LoadBookingHistory()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             try
             {
@@ -76,10 +77,9 @@ namespace AircraftManagement
             }
         }
 
-
         private void LoadWishlist()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
             try
             {
@@ -109,8 +109,6 @@ namespace AircraftManagement
             }
         }
 
-
-
         protected void BtnSaveChanges_Click(object sender, EventArgs e)
         {
             string fullName = txtFullName.Text.Trim();
@@ -131,7 +129,7 @@ namespace AircraftManagement
 
             try
             {
-                string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True";
+                string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

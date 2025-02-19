@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 <section class="hero-section">
-       <img src="images/plane1.jpeg" class="card-img-top" alt="Boeing 737"/>
+       <img src="images/HomeBG.gif" class="card-img-top" alt="HomeBG"/>
 
     <div class="hero-overlay">
         <h1 class="display-1 fw-bold text-white animated fadeInUp">Experience The Magic of Flight!</h1>

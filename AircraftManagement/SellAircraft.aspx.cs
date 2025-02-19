@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI.WebControls;
+using System.Configuration; // Required to read from Web.config
 
 public partial class SellAircraft : System.Web.UI.Page
 {
@@ -33,7 +34,9 @@ public partial class SellAircraft : System.Web.UI.Page
                 imagePath = path;
             }
 
-            using (SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abcdq\\source\\repos\\AircraftManagement\\AircraftManagement\\App_Data\\AircraftDB.mdf;Integrated Security=True"))
+            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Aircraft (Model, Capacity, RentalPrice, PurchasePrice, ImageURL) VALUES (@Model, @Capacity, @RentalPrice, @PurchasePrice, @ImageURL)";
                 SqlCommand cmd = new SqlCommand(query, conn);
