@@ -36,8 +36,8 @@
                         <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" placeholder="Enter aircraft description"></asp:TextBox>
                     </div>
                     <div class="mb-3">
-                        <label for="txtImageURL" class="form-label"><i class="fas fa-image"></i> Image URL</label>
-                        <asp:TextBox ID="txtImageURL" runat="server" CssClass="form-control" placeholder="Paste image URL"></asp:TextBox>
+                        <label for="fileUpload" class="form-label"><i class="fas fa-upload"></i> Upload Image</label>
+                        <asp:FileUpload ID="fileUpload" runat="server" CssClass="form-control" />
                     </div>
                     <div class="mb-3">
                         <label for="ddlStatus" class="form-label"><i class="fas fa-check-circle"></i> Status</label>
@@ -48,10 +48,10 @@
                         </asp:DropDownList>
                     </div>
                     <div class="mb-3 text-center">
-                        <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold"></asp:Label>
                     </div>
                     <asp:Button ID="BtnAddAircraft" runat="server" CssClass="btn btn-success w-100" 
-                                Text="Add Aircraft" OnClick="btnAddAircraft_Click" />
+                                Text="Add Aircraft" OnClick="BtnAddAircraft_Click" />
                 </div>
             </div>
         </div>

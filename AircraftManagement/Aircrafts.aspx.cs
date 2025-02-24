@@ -82,7 +82,7 @@ namespace AircraftManagement
             }
         }
 
-        protected void BtnFilter_Click(object sender, EventArgs e)
+        protected void btnFilter_Click(object sender, EventArgs e) // Ensure this method exists
         {
             string searchQuery = txtSearch.Text.Trim();
             string sortOption = ddlSort.SelectedValue;

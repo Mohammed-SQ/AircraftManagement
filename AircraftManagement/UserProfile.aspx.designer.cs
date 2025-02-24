@@ -11,7 +11,7 @@ namespace AircraftManagement
 {
 
 
-    public partial class Profile
+    public partial class UserProfile1
     {
 
         /// <summary>

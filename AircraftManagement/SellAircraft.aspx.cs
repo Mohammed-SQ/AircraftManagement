@@ -1,22 +1,24 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI.WebControls;
-using System.Configuration; // Required to read from Web.config
 
 public partial class SellAircraft : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // **Restrict access based on role**
         if (Session["Role"] == null || (!Session["Role"].ToString().Equals("Seller") &&
-                                        !Session["Role"].ToString().Equals("Customer") &&
-                                        !Session["Role"].ToString().Equals("Admin")))
+            !Session["Role"].ToString().Equals("Customer") &&
+            !Session["Role"].ToString().Equals("Admin")))
         {
+            // **Redirect to Unauthorized Page**
             Response.Redirect("Unauthorized.aspx");
         }
     }
 
-    protected void BtnSubmit_Click(object sender, EventArgs e)
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
         {
@@ -25,7 +27,7 @@ public partial class SellAircraft : System.Web.UI.Page
             decimal rentalPrice = txtRentalPrice.Visible ? Convert.ToDecimal(txtRentalPrice.Text.Trim()) : 0;
             decimal purchasePrice = txtPurchasePrice.Visible ? Convert.ToDecimal(txtPurchasePrice.Text.Trim()) : 0;
             string imagePath = "";
-
+            // **Handle Image Upload**
             if (fileUpload.HasFile)
             {
                 string filename = Path.GetFileName(fileUpload.FileName);
@@ -33,10 +35,8 @@ public partial class SellAircraft : System.Web.UI.Page
                 fileUpload.SaveAs(Server.MapPath(path));
                 imagePath = path;
             }
-
-            string connectionString = ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString;
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            // **Insert Data into Aircraft Table**
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["AircraftDB"].ConnectionString))
             {
                 string query = "INSERT INTO Aircraft (Model, Capacity, RentalPrice, PurchasePrice, ImageURL) VALUES (@Model, @Capacity, @RentalPrice, @PurchasePrice, @ImageURL)";
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -45,20 +45,20 @@ public partial class SellAircraft : System.Web.UI.Page
                 cmd.Parameters.AddWithValue("@RentalPrice", rentalPrice);
                 cmd.Parameters.AddWithValue("@PurchasePrice", purchasePrice);
                 cmd.Parameters.AddWithValue("@ImageURL", imagePath);
-
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
-
+            // **Update Session Role to "Seller" if they are Customer**
             if (Session["Role"].ToString() == "Customer")
             {
                 Session["Role"] = "Seller";
             }
-
+            // **Redirect to success page with confirmation message**
             Response.Redirect("Aircrafts.aspx?msg=Your aircraft has been listed successfully!");
         }
         catch (Exception)
         {
+            // **Redirect Unauthorized Users Instead of Error**
             Response.Redirect("Unauthorized.aspx");
         }
     }

@@ -23,7 +23,6 @@
             padding: 15px 0;
         }
 
-
         .content-container {
             margin-top: 20px;
         }
@@ -91,16 +90,20 @@
                     </ul>
 
                     <ul class="navbar-nav">
-                        <% if (Session["Role"] != null) { %>
-                            <% if (Session["Role"].ToString() == "Admin") { %>
+                        <% 
+                            string role = Session["Role"] != null ? Session["Role"].ToString() : null;
+                            string fullName = Session["FullName"] != null ? Session["FullName"].ToString() : null;
+                        %>
+                        <% if (!string.IsNullOrEmpty(role)) { %>
+                            <% if (role == "Admin") { %>
                                 <li class="nav-item"><a class="nav-link text-warning" href="AdminDashboard.aspx"><i class="fas fa-user-shield"></i> Admin</a></li>
                             <% } %>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user-circle"></i> <%= Session["FullName"] ?? "User" %>
+                                    <i class="fas fa-user-circle"></i> <%= fullName ?? "User" %>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user"></i> My Profile</a></li>
+                                    <li><a class="dropdown-item" href="UserProfile.aspx"><i class="fas fa-user"></i> My Profile</a></li>
                                     <li><a class="dropdown-item text-danger" href="Logout.aspx"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                 </ul>
                             </li>
@@ -147,7 +150,7 @@
                     </div>
                 </div>
                 <hr class="bg-light"/>
-                <p class="text-center">&copy; <script>document.write(new Date().getFullYear());</script> Aircraft Management. All rights reserved.</p>
+                <p class="text-center">© <script>document.write(new Date().getFullYear());</script> Aircraft Management. All rights reserved.</p>
             </div>
         </footer>
     </form>
@@ -166,5 +169,14 @@
         });
     </script>
 
+    <%-- Enhanced Debug: Check session data on page load --%>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Session Role: <%= Session["Role"] != null ? Session["Role"].ToString() : "null" %>");
+            console.log("Session FullName: <%= Session["FullName"] != null ? Session["FullName"].ToString() : "null" %>");
+            console.log("Session Users: <%= Session["Users"] != null ? Session["Users"].ToString() : "null" %>");
+            console.log("Session Email: <%= Session["Email"] != null ? Session["Email"].ToString() : "null" %>");
+        });
+    </script>
 </body>
 </html>

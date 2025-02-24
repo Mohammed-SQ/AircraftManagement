@@ -4,6 +4,7 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4"><i class="fas fa-plane"></i> Explore Our Luxury Aircraft</h2>
 
+        <!-- Search & Sort Section -->
         <div class="row mb-4">
             <div class="col-md-8">
                 <div class="input-group">
@@ -20,19 +21,21 @@
                 </asp:DropDownList>
             </div>
             <div class="col-md-2">
-                <asp:Button ID="BtnFilter" runat="server" CssClass="btn btn-primary w-100" Text="Apply" OnClick="btnFilter_Click" />
+                <asp:Button ID="BtnFilter" runat="server" CssClass="btn btn-primary w-100 fw-bold" 
+                            Text="Apply" OnClick="btnFilter_Click" /> <!-- Correctly set to btnFilter_Click -->
             </div>
         </div>
         <div class="mb-3 text-center">
-    <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="fw-bold"></asp:Label>
-</div>
+            <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="fw-bold"></asp:Label>
+        </div>
 
+        <!-- Aircraft Listings -->
         <div class="row">
             <asp:Repeater ID="rptAircrafts" runat="server">
                 <ItemTemplate>
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <div class="card shadow-lg border-0 aircraft-card">
-<img src='<%# ResolveUrl(Eval("ImageUrl").ToString()) %>' class="card-img-top" alt='<%# Eval("Model") %>' onerror="this.src='/images/default-aircraft.jpg';" />
+                            <img src='<%# ResolveUrl(Eval("ImageUrl").ToString()) %>' class="card-img-top" alt='<%# Eval("Model") %>' onerror="this.src='/images/default-aircraft.jpg';" />
                             <div class="card-body">
                                 <h5 class="card-title text-dark"><i class="fas fa-plane"></i> <%# Eval("Model") %></h5>
                                 <p class="text-muted"><%# Eval("Description") %></p>
@@ -43,7 +46,7 @@
                                     <i class="fas fa-industry"></i> <strong>Manufacturer:</strong> <%# Eval("Manufacturer") %>
                                 </p>
 
-                                <a href="PurchaseRental.aspx?AircraftID=<%# Eval("AircraftID") %>" 
+                                <a href="PurchaseRental.aspx?AircraftID=<%# Eval("AircraftID") %>"
                                    class="btn btn-success w-100 book-btn">
                                     <i class="fas fa-calendar-check"></i> Rent or Buy Now
                                 </a>

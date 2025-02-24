@@ -112,7 +112,6 @@
     <Content Include="Logout.aspx" />
     <Content Include="Marketplace.aspx" />
     <Content Include="Pricing.aspx" />
-    <Content Include="Profile.aspx" />
     <Content Include="PurchaseRental.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Reports.aspx" />
@@ -120,6 +119,7 @@
     <Content Include="Services.aspx" />
     <Content Include="TransactionHistory.aspx" />
     <Content Include="Unauthorized.aspx" />
+    <Content Include="UserProfile.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -235,13 +235,6 @@
     <Compile Include="Pricing.aspx.designer.cs">
       <DependentUpon>Pricing.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseRental.aspx.cs">
       <DependentUpon>PurchaseRental.aspx</DependentUpon>
@@ -298,6 +291,13 @@
     </Compile>
     <Compile Include="Unauthorized.aspx.designer.cs">
       <DependentUpon>Unauthorized.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfile.aspx.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserProfile.aspx.designer.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

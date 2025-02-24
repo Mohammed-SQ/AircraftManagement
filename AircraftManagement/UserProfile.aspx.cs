@@ -9,7 +9,7 @@ namespace AircraftManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserID"] == null)
+            if (Session["Users"] == null) // Changed from Session["UserID"] to Session["Users"]
             {
                 Response.Redirect("Login.aspx");
             }
@@ -29,11 +29,11 @@ namespace AircraftManagement
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT FullName, Email FROM Users WHERE UserID = @UserID";
+                string query = "SELECT FullName, Email FROM Users WHERE Users = @Users"; // Changed from UserID to Users
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                    cmd.Parameters.AddWithValue("@Users", Session["Users"]); // Changed from @UserID to @Users
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -59,10 +59,10 @@ namespace AircraftManagement
                 SELECT A.Model AS AircraftModel, T.TransactionType, T.StartDate, T.EndDate, T.TotalAmount, T.PaymentStatus
                 FROM Transactions T
                 INNER JOIN Aircraft A ON T.AircraftID = A.AircraftID
-                WHERE T.UserID = @UserID";
+                WHERE T.Users = @Users"; // Changed from UserID to Users
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                    adapter.SelectCommand.Parameters.AddWithValue("@Users", Session["Users"]); // Changed from @UserID to @Users
 
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -91,10 +91,10 @@ namespace AircraftManagement
                 SELECT A.Model AS AircraftModel, W.AddedAt, W.Notes
                 FROM Wishlist W
                 INNER JOIN Aircraft A ON W.AircraftID = A.AircraftID
-                WHERE W.UserID = @UserID";
+                WHERE W.Users = @Users"; // Changed from UserID to Users
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                    adapter.SelectCommand.Parameters.AddWithValue("@Users", Session["Users"]); // Changed from @UserID to @Users
 
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -109,7 +109,7 @@ namespace AircraftManagement
             }
         }
 
-        protected void BtnSaveChanges_Click(object sender, EventArgs e)
+        protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             string fullName = txtFullName.Text.Trim();
             string password = txtPassword.Text.Trim();
@@ -136,20 +136,20 @@ namespace AircraftManagement
                     conn.Open();
                     string query = "UPDATE Users SET FullName = @FullName" +
                                    (string.IsNullOrEmpty(password) ? "" : ", Password = @Password") +
-                                   " WHERE UserID = @UserID";
+                                   " WHERE Users = @Users"; // Changed from UserID to Users
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@FullName", fullName);
                         if (!string.IsNullOrEmpty(password))
                             cmd.Parameters.AddWithValue("@Password", password);
-                        cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                        cmd.Parameters.AddWithValue("@Users", Session["Users"]); // Changed from @UserID to @Users
 
                         cmd.ExecuteNonQuery();
                     }
                 }
 
-                Session["FullName"] = fullName;
+                Session["FullName"] = fullName; // Update session with new FullName
                 lblSuccess.Text = "Profile updated successfully.";
             }
             catch (Exception ex)

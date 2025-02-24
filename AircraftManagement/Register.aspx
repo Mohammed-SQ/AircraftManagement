@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="AirAircraftManagement.Register" %>
+﻿<%@ Page Title="Add Aircraft" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="AircraftManagement.Register" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-5">
@@ -65,6 +66,7 @@
                     <div class="mb-3">
                         <asp:Button ID="BtnRegister" CssClass="btn btn-primary w-100 fw-bold" runat="server" Text="Register" OnClick="btnRegister_Click" />
                         <asp:Label ID="lblMessage" runat="server" CssClass="text-center mt-3 text-danger fw-bold d-block"></asp:Label>
+                         <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
                     </div>
 
                     <div class="text-center mt-3">

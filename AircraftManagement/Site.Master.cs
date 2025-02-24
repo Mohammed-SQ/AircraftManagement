@@ -14,10 +14,11 @@ namespace AircraftManagement
 
         private void UpdateUserSession()
         {
-            if (Session["UserID"] == null)
+            if (Session["Users"] == null)
             {
                 Session["FullName"] = null;
                 Session["Role"] = null;
+                Session["Email"] = null;
             }
         }
     }

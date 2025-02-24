@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Sell Your Aircraft" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="SellAircraft.aspx.cs" Inherits="SellAircraft" %>
+﻿<%@ Page Title="Sell Your Aircraft" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="SellAircraft.aspx.cs" Inherits="AircraftManagement.SellAircraft" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-5">
@@ -36,7 +36,7 @@
                         <asp:ListItem Text="200+" Value="200+"></asp:ListItem>
                     </asp:DropDownList>
 
-                    <input type="number" id="customCapacity" class="form-control mt-2" placeholder="Enter exact capacity" min="1" oninput="updateProgress()" style="display: none;" />
+                    <asp:TextBox ID="txtCustomCapacity" runat="server" CssClass="form-control mt-2" Placeholder="Enter exact capacity" Visible="false"></asp:TextBox>
                     <small id="capacityLabel" class="form-text text-muted mt-1" style="display: none;"></small>
                 </div>
             </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <asp:Button ID="BtnSubmit" runat="server" CssClass="btn btn-success w-50 fw-bold" Text="Submit Aircraft" OnClientClick="return confirmSubmission();" Enabled="false" />
+            <asp:Button ID="BtnSubmit" runat="server" CssClass="btn btn-success w-50 fw-bold" Text="Submit Aircraft" OnClick="BtnSubmit_Click" Enabled="false" />
         </div>
     </div>
 
@@ -77,8 +77,8 @@
 
         function toggleCustomCapacity() {
             var range = document.getElementById('<%= ddlCapacityRange.ClientID %>').value;
+            var customCapacity = document.getElementById('<%= txtCustomCapacity.ClientID %>');
             var capacityLabel = document.getElementById("capacityLabel");
-            var customCapacity = document.getElementById("customCapacity");
 
             if (range) {
                 customCapacity.style.display = "block";
@@ -113,10 +113,10 @@
             if (document.getElementById('<%= txtModel.ClientID %>').value.trim() !== "") completedFields++;
             if (transactionType !== "") completedFields++;
             if (document.getElementById('<%= ddlCapacityRange.ClientID %>').value.trim() !== "") completedFields++;
-            if (document.getElementById("customCapacity").style.display !== "none" && document.getElementById("customCapacity").value.trim() !== "") completedFields++;
+            if (document.getElementById('<%= txtCustomCapacity.ClientID %>').style.display !== "none" && document.getElementById('<%= txtCustomCapacity.ClientID %>').value.trim() !== "") completedFields++;
 
             if (transactionType === "Both") {
-                if (document.getElementById('<%= txtRentalPrice.ClientID %>').value.trim() !== "" && 
+                if (document.getElementById('<%= txtRentalPrice.ClientID %>').value.trim() !== "" &&
                     document.getElementById('<%= txtPurchasePrice.ClientID %>').value.trim() !== "") {
                     completedFields++;
                 }
@@ -131,7 +131,7 @@
             document.getElementById("progressBar").style.width = percent + "%";
             document.getElementById("progressBar").textContent = Math.round(percent) + "%";
 
-            document.getElementById('<%= btnSubmit.ClientID %>').disabled = percent < 100;
+            document.getElementById('<%= BtnSubmit.ClientID %>').disabled = percent < 100;
         }
     </script>
 </asp:Content>
