@@ -1,0 +1,186 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Flight.Master.cs" Inherits="AircraftManagement.Flight" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FHMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-top: 10px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: rgb(73,1,135);
+            background: linear-gradient(90deg, rgba(73,1,135,1) 20%, rgba(112,1,208,1) 51%, rgba(189,135,235,1) 100%);
+            color: white;
+        }
+
+        .custom-navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+            border-radius: 5px;
+            font-size: 16px;
+            padding: 8px 15px;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .nav-link:active {
+            color: white !important;
+            box-shadow: 0 0 5px white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 0;
+            margin-top: 100px;
+        }
+
+        .footer {
+            width: 100%;
+            padding: 40px 0;
+            color: white;
+            text-align: center;
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+            box-shadow: 0 0 5px white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            color: white !important;
+        }
+
+        .navbar-center {
+            position: absolute;
+            left: 40%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        @media (max-width: 991px) {
+            body {
+                padding-top: 100px;
+            }
+
+            .navbar-center {
+                display: none;
+            }
+
+            .main-content {
+                margin-top: 120px;
+            }
+
+            .nav-link {
+                font-size: 14px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg fixed-top custom-navbar" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="Default.aspx">
+                    <img src="images/logoNEW.png" alt="Aircraft Management" style="height: 60px; width: auto;"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="Home.aspx">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Aircrafts.aspx">Aircrafts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Services.aspx">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FAQ.aspx">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Contact.aspx">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="AboutUs.aspx">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="AdminDashboard.aspx">Admin Dashboard</a></li>
+                        <asp:LoginView ID="LoginView1" runat="server">
+                            <AnonymousTemplate>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.aspx">Login</a>
+                                </li>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <li class="nav-item">
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="nav-link btn-link" LogoutText="Logout" />
+                                </li>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="AdminLink" runat="server" NavigateUrl="AdminDashboard.aspx" CssClass="nav-link" Visible="false">
+                                <i class="fas fa-user-shield"></i> Admin
+                            </asp:HyperLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© <%: DateTime.Now.Year %> FHMS. All rights reserved.</p>
+            <p>
+                <a href="Privacy.aspx">Privacy Policy</a> |
+                <a href="Terms.aspx">Terms of Service</a> |
+                <a href="Contact.aspx">Contact Us</a>
+            </p>
+            <p><i class="fas fa-shield-alt"></i> Secured with HTTPS & PCI Compliance</p>
+        </footer>
+    </form>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

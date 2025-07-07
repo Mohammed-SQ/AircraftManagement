@@ -1,0 +1,119 @@
+﻿.selection-row {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.custom-select, .transaction-type-box {
+    flex: 1;
+    min-width: 0;
+}
+
+    .custom-select select, .transaction-type-box select {
+        width: 100%;
+        padding: 15px 45px 15px 20px;
+        font-size: 1em;
+        border-radius: 10px;
+        border: 2px solid #4B0082;
+        background: #fff url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjNDg0ODQ4IiBkPSJNMi4zIDUuNmw1LjcgNS43YzAuMi4yLjUuMi43IDBsNS43LTUuN2MuNC0uNC40LTEuMSAwLTEuNS0uNC0uNC0xLjEtLjQtMS41IDBsLTUuMiA5LjItNS5yLTUuMmMtLjQtLjQtMS4xLS40LTEuNSAwLS40LjQtLjQuMSAwIDEuNXoiLz48L3N2Zz4=') no-repeat right 20px center;
+        background-size: 12px;
+        appearance: none;
+        transition: all 0.3s ease;
+        color: #000000 !important;
+    }
+
+        .custom-select select:focus, .transaction-type-box select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+custom-select, .transaction-type-box, .seller-username-box {
+    flex: 1;
+    min-width: 0;
+}
+
+    .custom-select select, .transaction-type-box select, .seller-username-box label {
+        width: 100%;
+        padding: 10px 20px; /* Reduced padding */
+        font-size: 1em;
+        border-radius: 10px;
+        border: 2px solid #4B0082;
+        background: #fff url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBmaWxsPSIjNDg0ODQ4IiBkPSJNMi4zIDUuNmw1LjcgNS43YzAuMi4yLjUuMi43IDBsNS43LTUuN2MuNC0uNC40LTEuMSAwLTEuNS0uNC0uNC0xLjEtLjQtMS41IDBsLTUuMiA5LjItNS5yLTUuMmMtLjQtLjQtMS4xLS40LTEuNSAwLS40LjQtLjQuMSAwIDEuNXoiLz48L3N2Zz4=') no-repeat right 20px center;
+        background-size: 12px;
+        appearance: none;
+        transition: all 0.3s ease;
+        color: #000000 !important;
+    }
+
+
+        .custom-select select:focus, .transaction-type-box select:focus, .seller-username-box label:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+    /* Adjusting for labels to maintain the same styling */
+    .seller-username-box label {
+        padding: 15px 45px 15px 20px;
+        font-size: 1em;
+        border-radius: 10px;
+        border: 2px solid #4B0082;
+        background-color: #fff;
+        display: block;
+        width: 100%;
+        color: #000000;
+    }
+.aircraft-image {
+    border-radius: 15px;
+    max-height: 350px;
+    object-fit: cover;
+    width: 100%;
+    margin-bottom: 30px;
+    border: 2px solid #e0e4e8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.aircraft-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 0;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.seller-username-box label {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+    .aircraft-info div {
+        flex: 1;
+        min-width: 220px;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #333333;
+    }
+
+    .aircraft-info strong {
+        color: #4B0082;
+        font-weight: 600;
+    }
+
+    .aircraft-info #aircraftDescription {
+        font-size: 1.1em;
+        color: #333333;
+        line-height: 1.6;
+        flex-basis: 100%;
+    }
+
+@media (max-width: 768px) {
+    .aircraft-info div {
+        min-width: 100%;
+    }
+}

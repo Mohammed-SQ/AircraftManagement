@@ -1,0 +1,652 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="AircraftManagement.Site" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Aircraft Rental and Purchase Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <script type="text/javascript">
+        window.isLoggedIn = '<%= Session["UserID"] != null ? "true" : "false" %>';
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            padding-top: 40px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: rgb(73,1,135);
+            background: linear-gradient(90deg, rgba(73,1,135,1) 20%, rgba(112,1,208,1) 51%, rgba(189,135,235,1) 100%);
+            color: white;
+        }
+        .discount-banner {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 128, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            margin: 0;
+            text-align: center;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: block;
+            backdrop-filter: blur(10px);
+            transition: top 0.5s ease-in-out;
+        }
+        .discount-banner.show {
+            top: 0;
+        }
+        .discount-banner + .discount-banner {
+            top: auto;
+            margin-top: 0;
+        }
+        .discount-banner .btn {
+            background-color: #28a745;
+            border: none;
+            color: white;
+            margin-left: 10px;
+        }
+        .discount-banner .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .custom-navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            margin: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            transition: top 0.5s ease-in-out;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+            border-radius: 5px;
+            font-size: 16px;
+            padding: 8px 15px;
+        }
+        .nav-link:hover, .nav-link:focus, .nav-link:active {
+            color: white !important;
+            box-shadow: 0 0 5px white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+        }
+        .navbar-nav {
+            flex-wrap: nowrap;
+        }
+        .content-container {
+            margin-top: 80px;
+            flex: 1;
+        }
+        .footer {
+            width: 100%;
+            padding: 40px 0;
+            color: white;
+            text-align: center;
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+        }
+        .footer .container-fluid {
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .footer .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+            border-radius: 5px;
+        }
+        .footer a:hover, .footer a:focus, .footer a:active {
+            text-decoration: underline;
+            box-shadow: 0 0 5px white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            color: white !important;
+        }
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-item {
+            color: white !important;
+            padding: 10px 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+        .dropdown-item i {
+            margin-right: 8px;
+        }
+        .notification-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+            margin-left: -15px;
+            vertical-align: middle;
+        }
+        .notification-icon {
+            cursor: pointer;
+            color: yellow;
+        }
+        .notification-box {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            min-width: 300px;
+        }
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        .notification-item .offer-details {
+            flex-grow: 1;
+        }
+        .notification-item .timer {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .admin-link {
+            color: gold !important;
+        }
+        .nav-item.dropdown, .nav-item {
+            display: inline-flex;
+            align-items: center;
+        }
+        @media (max-width: 991px) {
+            body { padding-top: 100px; }
+            .custom-navbar { padding: 10px 0; }
+            .navbar-nav { flex-wrap: wrap; }
+            .nav-link { font-size: 14px; padding: 5px 10px; }
+            .content-container { margin-top: 120px; }
+        }
+        /* Blur effect for the entire page when modal is active */
+        .page-blur {
+            filter: blur(8px);
+            transition: filter 0.3s ease-in-out;
+        }
+
+        /* Style for the login and register modals */
+        .modal-content {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: backdrop-filter 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<form id="form1" runat="server" style="display: contents;">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />
+    <asp:Repeater ID="rptPromotions" runat="server">
+        <ItemTemplate>
+            <div class="discount-banner" id='<%# "banner_" + Eval("PromotionID") %>'>
+                <span style="font-size: 18px;">
+                    <i class="fas fa-gift"></i> <%# Eval("Title") %> - <%# Eval("Description") %>
+                    <a href="Promotions.aspx?PromotionID=<%# Eval("PromotionID") %>" 
+                       class="btn btn-sm" 
+                       onclick='if (window.isLoggedIn !== "true") { showLoginModal("Promotions.aspx?PromotionID=<%# Eval("PromotionID") %>"); return false; }'>
+                        Claim Now ✅
+                    </a>
+                    <span class="countdown" data-expiry='<%# Eval("ExpiryDate") %>'>
+                        <i class="fas fa-clock"></i> <span class="time-left"></span>
+                    </span>
+                </span>
+                <span class="close-btn" onclick="this.parentElement.style.display='none'; adjustLayout();">✖</span>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar" id="navbar">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="Home.aspx">
+                <img src="images/logoNEW.png" alt="Aircraft Management" style="height: 70px; width: 70px;" />
+            </a>
+
+            <!-- Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="Home.aspx">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Aircrafts.aspx">Aircrafts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Services.aspx">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Community.aspx">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="FAQ.aspx">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Contact.aspx">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="AboutUs.aspx">About Us</a></li>
+                </ul>
+
+                <!-- User Section -->
+                <ul class="navbar-nav">
+                    <%
+                        string username = Session["Username"] != null ? Session["Username"].ToString() : null;
+                        string role = Session["Role"] != null ? Session["Role"].ToString() : null;
+                    %>
+                    <% if (!string.IsNullOrEmpty(username) && username != "Guest") { %>
+                        <li class="nav-item dropdown">
+                            <% if (role == "Admin") { %>
+                                <!-- Admin Notifications -->
+                                <span class="notification-wrapper">
+                                    <i class="fas fa-bell notification-icon" onclick="toggleNotificationBox(this)"></i>
+                                    <div class="notification-box" id="notificationBoxAdmin" runat="server">
+                                        <asp:Repeater ID="rptNotificationsAdmin" runat="server">
+                                            <ItemTemplate>
+                                                <div class="notification-item">
+                                                    <div class="offer-details">
+                                                        <i class="fas fa-gift"></i> <%# Eval("Title") %> - <%# Eval("Description") %>
+                                                    </div>
+                                                    <span class="timer countdown" data-expiry='<%# Eval("ExpiryDate") %>'>
+                                                        <i class="fas fa-clock"></i> <span class="time-left"></span>
+                                                    </span>
+                                                </div>
+                                            </ItemTemplate>
+                                            <FooterTemplate>
+                                                <asp:Label ID="lblNoNotifications" runat="server" Text="You don't have any notifications" Visible='<%# ((Repeater)Container.NamingContainer).Items.Count == 0 %>' />
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                </span>
+                                <!-- Admin Dropdown -->
+                                <a class="nav-link admin-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-shield"></i> Admin
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li><a class="dropdown-item" href="AdminDashboard.aspx"><i class="fas fa-tachometer-alt"></i> Admin</a></li>
+                                    <li><a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user-circle"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="CustomerDashboard.aspx"><i class="fas fa-plane"></i> My Flight</a></li>
+                                    <li><a class="dropdown-item" href="Promotions.aspx"><i class="fas fa-gift"></i> Promotions</a></li>
+                                </ul>
+                            <% } else { %>
+                                <!-- User Notifications -->
+                                <span class="notification-wrapper">
+                                    <i class="fas fa-bell notification-icon" onclick="toggleNotificationBox(this)"></i>
+                                    <div class="notification-box" id="notificationBoxUser" runat="server">
+                                        <asp:Repeater ID="rptNotificationsUser" runat="server">
+                                            <ItemTemplate>
+                                                <div class="notification-item">
+                                                    <div class="offer-details">
+                                                        <i class="fas fa-gift"></i> <%# Eval("Title") %> - <%# Eval("Description") %>
+                                                    </div>
+                                                    <span class="timer countdown" data-expiry='<%# Eval("ExpiryDate") %>'>
+                                                        <i class="fas fa-clock"></i> <span class="time-left"></span>
+                                                    </span>
+                                                </div>
+                                            </ItemTemplate>
+                                            <FooterTemplate>
+                                                <asp:Label ID="lblNoNotifications" runat="server" Text="You don't have any notifications" Visible='<%# ((Repeater)Container.NamingContainer).Items.Count == 0 %>' />
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                </span>
+                                <!-- User Dropdown -->
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <%= username %>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <% if (SellerRole == "ON") { %>
+                                        <li><a class="dropdown-item" href="SellerDashboard.aspx"><i class="fas fa-tachometer-alt"></i> Seller Dashboard</a></li>
+                                    <% } %>
+                                    <li><a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user-circle"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="CustomerDashboard.aspx"><i class="fas fa-plane"></i> My Flight</a></li>
+                                    <li><a class="dropdown-item" href="Promotions.aspx"><i class="fas fa-gift"></i> Promotions</a></li>
+                                </ul>
+                            <% } %>
+                        </li>
+                        <!-- Logout -->
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="Logout.aspx"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </li>
+                    <% } else { %>
+                        <!-- Login and Register -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showLoginModal(); return false;"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showRegisterModal(); return false;"><i class="fas fa-user-plus"></i> Register</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-container" id="contentContainer">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>We provide premium aircraft rentals and sales with competitive pricing.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="security-badge text-center mt-3">
+                        <p><i class="fas fa-shield-alt"></i> Secured with HTTPS & PCI Compliance 🛡️</p>
+                    </div>
+                    <h5>Quick Links</h5>
+                    <div class="quick-links">
+                        <a href="Home.aspx">Home</a>
+                        <a href="Aircrafts.aspx">Aircrafts</a>
+                        <a href="Services.aspx">Services</a>
+                        <a href="FAQ.aspx">FAQ</a>
+                        <a href="Contact.aspx">Contact</a>
+                        <a href="AboutUs.aspx">About Us</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@aircraftmanagement.com</p>
+                </div>
+            </div>
+            <hr class="bg-light" />
+            <p class="text-center">© <script>document.write(new Date().getFullYear());</script> Aircraft Management. All rights reserved.</p>
+        </div>
+    </footer>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function togglePageBlur(show) {
+        const body = document.body;
+        if (show) {
+            body.classList.add('page-blur');
+        } else {
+            body.classList.remove('page-blur');
+        }
+    }
+
+    // Hook into modal show/hide events
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginModal = document.querySelector('#loginModal');
+        const registerModal = document.querySelector('#registerModal');
+
+        if (loginModal) {
+            loginModal.addEventListener('show.bs.modal', function () {
+                togglePageBlur(true);
+            });
+            loginModal.addEventListener('hidden.bs.modal', function () {
+                togglePageBlur(false);
+            });
+        }
+
+        if (registerModal) {
+            registerModal.addEventListener('show.bs.modal', function () {
+                togglePageBlur(true);
+            });
+            registerModal.addEventListener('hidden.bs.modal', function () {
+                togglePageBlur(false);
+            });
+        }
+    });
+
+    function adjustLayout() {
+        var banners = document.querySelectorAll('.discount-banner');
+        var totalHeight = 0;
+        banners.forEach(function (banner, index) {
+            if (banner.style.display !== 'none' && getComputedStyle(banner).display !== 'none') {
+                totalHeight += banner.offsetHeight;
+                if (index > 0) {
+                    var previousHeight = 0;
+                    for (var i = 0; i < index; i++) {
+                        if (banners[i].style.display !== 'none' && getComputedStyle(banners[i]).display !== 'none') {
+                            previousHeight += banners[i].offsetHeight;
+                        }
+                    }
+                    banner.style.top = previousHeight + 'px';
+                }
+            }
+        });
+        var navbar = document.getElementById('navbar');
+        var contentContainer = document.getElementById('contentContainer');
+        navbar.style.top = totalHeight + 'px';
+        contentContainer.style.marginTop = (totalHeight + 80) + 'px';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        adjustLayout();
+        document.querySelectorAll('.discount-banner').forEach(function (banner) {
+            setTimeout(function () {
+                banner.classList.add('show');
+                adjustLayout();
+            }, 100);
+            setTimeout(function () {
+                banner.classList.remove('show');
+                setTimeout(function () {
+                    banner.style.display = 'none';
+                    adjustLayout();
+                }, 500);
+            }, 60000);
+        });
+
+        // Timer for notification countdowns
+        document.querySelectorAll('.countdown').forEach(function (item) {
+            var expiry = new Date(item.getAttribute('data-expiry')).getTime();
+            var timer = setInterval(function () {
+                var now = new Date().getTime();
+                var timeLeft = expiry - now;
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    item.querySelector('.time-left').innerText = 'Expired ⏲️';
+                    return;
+                }
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                item.querySelector('.time-left').innerText = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+            }, 1000);
+        });
+    });
+
+    document.querySelectorAll('.close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var banner = btn.parentElement;
+            banner.classList.remove('show');
+            setTimeout(function () {
+                banner.style.display = 'none';
+                adjustLayout();
+            }, 500);
+        });
+    });
+
+    function showLoginModal(promotionUrl) {
+        if (promotionUrl) {
+            localStorage.setItem('returnUrl', promotionUrl);
+        }
+
+        var existingLoginModal = document.querySelector('#loginModal');
+        if (existingLoginModal) {
+            var modal = bootstrap.Modal.getOrCreateInstance(existingLoginModal);
+            modal.show();
+            return;
+        }
+
+        fetch('Login.aspx')
+            .then(response => response.text())
+            .then(html => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var modalContent = doc.querySelector('#loginModal');
+
+                if (modalContent) {
+                    document.body.appendChild(modalContent);
+
+                    var scripts = modalContent.getElementsByTagName('script');
+                    for (var i = 0; i < scripts.length; i++) {
+                        var scriptContent = scripts[i].innerHTML;
+                        if (scriptContent) {
+                            try {
+                                eval(scriptContent);
+                            } catch (e) {
+                                console.error("Error executing script:", e);
+                            }
+                        }
+                    }
+
+                    var modal = new bootstrap.Modal(modalContent, {
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    modal.show();
+
+                    modalContent.addEventListener('hidden.bs.modal', function () {
+                        var backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) backdrop.remove();
+                        document.body.classList.remove('modal-open');
+                    });
+                } else {
+                    console.error('Login modal not found in Login.aspx');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching login modal:', error);
+            });
+    }
+
+    function showRegisterModal() {
+        var existingRegisterModal = document.querySelector('#registerModal');
+        if (existingRegisterModal) {
+            var modal = new bootstrap.Modal(existingRegisterModal, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            modal.show();
+            return;
+        }
+
+        fetch('Register.aspx')
+            .then(response => response.text())
+            .then(html => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var modalContent = doc.querySelector('#registerModal');
+
+                if (modalContent) {
+                    document.body.appendChild(modalContent);
+
+                    var scripts = modalContent.getElementsByTagName('script');
+                    for (var i = 0; i < scripts.length; i++) {
+                        var scriptContent = scripts[i].innerHTML;
+                        if (scriptContent) {
+                            try {
+                                eval(scriptContent);
+                            } catch (e) {
+                                console.error("Error executing script:", e);
+                            }
+                        }
+                    }
+
+                    var modal = new bootstrap.Modal(modalContent, {
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    modal.show();
+
+                    modalContent.addEventListener('hidden.bs.modal', function () {
+                        modalContent.remove();
+                    });
+                } else {
+                    console.error('Register modal not found in Register.aspx');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching register modal:', error);
+            });
+    }
+
+    function toggleNotificationBox(icon) {
+        const notificationBox = icon.nextElementSibling;
+        if (notificationBox.style.display === "block") {
+            notificationBox.style.display = "none";
+        } else {
+            document.querySelectorAll('.notification-box').forEach(box => {
+                box.style.display = "none";
+            });
+            notificationBox.style.display = "block";
+        }
+    }
+
+    document.addEventListener('click', function (event) {
+        const notificationBoxes = document.querySelectorAll('.notification-box');
+        const notificationIcons = document.querySelectorAll('.notification-icon');
+
+        let isClickInside = false;
+
+        notificationIcons.forEach(icon => {
+            if (icon.contains(event.target)) {
+                isClickInside = true;
+            }
+        });
+
+        notificationBoxes.forEach(box => {
+            if (box.contains(event.target)) {
+                isClickInside = true;
+            }
+        });
+
+        if (!isClickInside) {
+            notificationBoxes.forEach(box => {
+                box.style.display = "none";
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+﻿body {
+    background: linear-gradient(135deg, #1a1a3d 0%, #2e2e5e 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+}
+
+.dashboard-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+h2, h3, h4, h5, h6 {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.booking-card {
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .booking-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+.booking-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-body {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 0 0 15px 15px;
+}
+
+.map-container {
+    height: 350px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ffd700;
+    background: #333; /* Fallback background for when map fails to load */
+}
+
+.map-error {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.countdown-timer {
+    font-size: 1.3rem;
+    color: #28a745;
+    font-weight: bold;
+    background: rgba(40, 167, 69, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.progress-bar-container {
+    margin: 15px 0;
+}
+
+.weather-info {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+    .weather-info i {
+        margin-right: 10px;
+        font-size: 1.5rem;
+        color: #ffd700;
+    }
+
+.chat-section {
+    position: relative;
+}
+
+.chat-toggle {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .chat-toggle:hover {
+        background: #0056b3;
+    }
+
+.chat-box {
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+    .chat-message.sent {
+        background: #007bff;
+        margin-left: 20%;
+        margin-right: 5%;
+        text-align: right;
+    }
+
+    .chat-message.received {
+        background: #444;
+        margin-right: 20%;
+        margin-left: 5%;
+    }
+
+    .chat-message .sender {
+        font-weight: bold;
+        color: #ffd700;
+    }
+
+    .chat-message .timestamp {
+        font-size: 0.8rem;
+        color: #ccc;
+        margin-left: 10px;
+    }
+
+.chat-input-group {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+    .btn-action:hover {
+        opacity: 0.9;
+    }
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: none;
+    border-radius: 15px;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.flight-status {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.rating-stars i {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+    .rating-stars i.active {
+        color: #ffd700;
+    }
+
+.invitations-section {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.invitation-card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+    .invitation-card:hover {
+        transform: translateY(-3px);
+    }
+
+.invited-people {
+    margin-bottom: 30px;
+}
+
+.invite-counter {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 15px;
+}
+
+.invite-progress {
+    height: 12px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.invited-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+    .invited-user:hover {
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .invited-user img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        object-fit: cover;
+        border: 2px solid #ffd700;
+    }
+
+    .invited-user span {
+        flex-grow: 1;
+        font-size: 1.1rem;
+    }
+
+.flight-details {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.flight-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.aircraft-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ffd700;
+}
+
+.live-status {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+    .live-status p {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+.enter-code-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

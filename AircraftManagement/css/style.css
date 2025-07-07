@@ -1,0 +1,191 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+header {
+    background-color: #007bff;
+}
+
+.navbar {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    font-size: 0.9em;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.review-card {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+.review-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.review-stars {
+    font-size: 20px;
+    color: gold;
+}
+
+.review-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Make Hero Section Full-Screen */
+.hero-section {
+    background: url('images/plane1.jpg') center/cover no-repeat;
+    height: 100vh; /* Full height of viewport */
+    width: 100vw; /* Full width of viewport */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Dark Overlay */
+/* Hero Section */
+/* Hero Section */
+.hero-section {
+    background: url('images/plane1.jpg') center/cover no-repeat;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Ensures no content spills out */
+    margin: 0;
+    padding: 0;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Positioned over the hero section */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure it sits above the background image */
+}
+
+.hero-content {
+    z-index: 2; /* Ensures content is above the overlay */
+    color: white;
+    position: relative; /* Relative positioning for z-index */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Spacing */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    z-index: 1000; /* Ensure it stays on top */
+    transition: background-color 0.3s ease-in-out; /* Smooth background transition */
+}
+
+    .navbar a.nav-link {
+        color: white !important; /* Ensure links are white */
+        font-weight: bold; /* Bold text */
+        padding: 8px 15px; /* Spacing for links */
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth hover effects */
+    }
+
+        .navbar a.nav-link:hover,
+        .navbar a.nav-link:focus {
+            color: #007bff !important; /* Change to blue on hover */
+            background-color: rgba(255, 255, 255, 0.2); /* Add a light background */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+.navbar-brand {
+    font-size: 1.5rem; /* Larger font for the brand */
+    font-weight: bold; /* Bold text */
+    color: white !important; /* Ensure brand text is white */
+    transition: color 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+    .navbar-brand:hover {
+        color: #007bff !important; /* Change to blue on hover */
+    }
+
+.navbar-toggler {
+    border: none; /* Remove border */
+    color: white; /* White icon */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.dropdown-item {
+    color: white; /* White text */
+    padding: 10px 20px; /* Spacing */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth hover effects */
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+        color: #007bff; /* Blue text on hover */
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .navbar {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .navbar-nav {
+        flex-direction: column; /* Stack links vertically */
+    }
+
+    .nav-link {
+        text-align: center; /* Center-align links */
+    }
+}
